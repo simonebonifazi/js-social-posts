@@ -25,3 +25,10 @@ Se clicchiamo sul tasto "Mi Piace" cambiamo il colore al testo del bottone e inc
  Ragioniamo tanto sulla definizione dell'oggetto, se sbagliamo quello tutto diventa più difficile!
 
 */
+/*
+steps__
+0. dichiaro variabili globali
+1. costruisco il mio array di oggetti con tutte le sue caratteristiche
+2. stampo i post nel DOM 
+3. con un event-listener aggiungo al click funzione che fa diventare verde la scritta del testo e aggiunge 1 al numero dei like*/
+
