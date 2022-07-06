@@ -33,7 +33,9 @@ steps__
 3. con un event-listener aggiungo al click funzione che fa diventare verde la scritta del testo e aggiunge 1 al numero dei like
 */
 
+//variabili globali
 const post = document.querySelector('.post');
+const likeButton = document.querySelector('.likes__cta');
 
 
 //array
@@ -45,16 +47,16 @@ const postContent = [
         date: '07/24/2022',
         text: 'this is my best post ever',
         content: 'https://unsplash.it/300/300?image=5',
-        likes: '50'
+        likes: 50
     },
     {
         id: '2',
         name: 'Giannis Postis',
         photo: 'https://unsplash.it/300/300?image=21',
-        date: '07/21/2022',
+        date: '07/17/2022',
         text: 'this is my best post this week',
         content: 'https://unsplash.it/300/300?image=56',
-        likes: '24'
+        likes: 24
     },
     {
         id: '3',
@@ -62,17 +64,17 @@ const postContent = [
         photo: 'https://unsplash.it/300/300?image=11',
         date: '07/01/2022',
         text: 'this is my best picture of manue',
-        content: 'https://unsplash.it/300/300?image=16',
-        likes: '1024'
+        content: 'https://unsplash.it/300/300?image=335',
+        likes: 1024
     },
     {
         id: '4',
         name: 'Rezza Capa',
         photo: 'https://unsplash.it/300/300?image=15',
-        date: '07/21/2022',
+        date: '07/11/2022',
         text: 'this is my viral post ',
         content: 'https://unsplash.it/300/300?image=28',
-        likes: '26'
+        likes: 26
     },
 
 ]
@@ -107,3 +109,12 @@ for (i = 0; i < postContent.length; i++) {
         <div class="likes__counter">Piace a <b id="like-counter-1" class="js-likes-counter">${element.likes}</b> persone</div>
       </div>`;
 }
+
+//aumento i like e diventa verde lo sfondo al click
+
+document.querySelector('.like-button').addEventListener('click', function () {
+    this.classList.add('green');
+    (document.querySelector('.js-likes-counter').innerText)++
+    if (document.querySelector('.like-button').classList.contains('green')) return
+
+})
