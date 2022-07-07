@@ -144,7 +144,7 @@ for (let i = 0; i < likeButtons.length; i++) {
     })
 }
 
-// document.querySelectorAll('.like-button').addEventListener('click', function () {
+// document.querySelector('.like-button').addEventListener('click', function () {
 //     this.classList.add('green');
 //     (document.querySelector('.js-likes-counter').innerText)++
 //     if (document.querySelector('.like-button').classList.contains('green')) return
