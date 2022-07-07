@@ -71,8 +71,6 @@ const createCard = (card) => {
 
 //variabili globali
 const post = document.getElementById('container');
-//aggancio ai bottoni
-const likeButtons = document.querySelectorAll('.js-like-button')
 
 //array
 const postContent = [
@@ -121,7 +119,9 @@ for (i = 0; i < postContent.length; i++) {
 }
 
 //aumento i like e diventa verde lo sfondo al click
-//non riesco ad agganciarmi!!
+//aggancio ai bottoni
+const likeButtons = document.querySelectorAll(".like-button");
+//non riesco ad agganciarmi!! come mai vedo lista vuota?
 console.log(likeButtons)
 console.log(likeButtons.length)
 
