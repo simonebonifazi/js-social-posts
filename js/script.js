@@ -32,11 +32,47 @@ steps__
 2. stampo i post nel DOM 
 3. con un event-listener aggiungo al click funzione che fa diventare verde la scritta del testo e aggiunge 1 al numero dei like
 */
+//funzione per creare le card
+const createCard = (card) => {
+    const element = postContent[i]
+    const { photo, name, date, text, id, content, likes } = element
+    card = `
+    <div class="post">
+      <div class="post__header">
+          <div class="post-meta">
+          <div class="post-meta__icon">
+            <img class="profile-pic" src="${photo}" alt="${name}" />
+          </div>
+          <div class="post-meta__data">
+            <div class="post-meta__author">${name}</div>
+            <div class="post-meta__time">${date}</div>
+          </div>
+        </div>
+      </div>
+      <div class="post__text">
+      ${text}
+    </div>
+    <div class="post__image">
+      <img src="${content}" alt="${id}" />
+    </div>
+    <div class="post__footer">
+      <div class="likes js-likes">
+        <div class="likes__cta">
+          <a class="like-button js-like-button" href="#" data-postid="${id}">
+            <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
+            <span class="like-button__label">Mi Piace</span>
+          </a>
+        </div>
+        <div class="likes__counter">Piace a <b id="like-counter-${id}" class="js-likes-counter">${likes}</b> persone</div>
+      </div>
+      </div>`;
+    return card
+}
 
 //variabili globali
-const post = document.querySelector('.post');
-const likeButton = document.querySelector('.likes__cta');
-
+const post = document.getElementById('container');
+//aggancio ai bottoni
+const likeButtons = document.querySelectorAll('.js-like-button')
 
 //array
 const postContent = [
@@ -78,43 +114,39 @@ const postContent = [
     },
 
 ]
-
+let cards = '';
 for (i = 0; i < postContent.length; i++) {
-    const element = postContent[i]
-    post.innerHTML += `<div class="post__header">
-          <div class="post-meta">
-          <div class="post-meta__icon">
-            <img class="profile-pic" src="${element.photo}" alt="${element.name}" />
-          </div>
-          <div class="post-meta__data">
-            <div class="post-meta__author">${element.name}</div>
-            <div class="post-meta__time">${element.date}</div>
-          </div>
-        </div>
-      </div>
-      <div class="post__text">
-      ${element.text}
-    </div>
-    <div class="post__image">
-      <img src="${element.content}" alt="${element.id}" />
-    </div>
-    <div class="post__footer">
-      <div class="likes js-likes">
-        <div class="likes__cta">
-          <a class="like-button js-like-button" href="#" data-postid="1">
-            <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
-            <span class="like-button__label">Mi Piace</span>
-          </a>
-        </div>
-        <div class="likes__counter">Piace a <b id="like-counter-1" class="js-likes-counter">${element.likes}</b> persone</div>
-      </div>`;
+
+    post.innerHTML += createCard(cards);
 }
 
 //aumento i like e diventa verde lo sfondo al click
+//non riesco ad agganciarmi!!
+console.log(likeButtons)
+console.log(likeButtons.length)
 
-document.querySelector('.like-button').addEventListener('click', function () {
-    this.classList.add('green');
-    (document.querySelector('.js-likes-counter').innerText)++
-    if (document.querySelector('.like-button').classList.contains('green')) return
+for (let i = 0; i < likeButtons.length; i++) {
+    const button = likeButtons[i]
+    button.addEventListener('click', () => {
+        //aggiungo classe
+        button.classList.add('like-button--liked');
 
-})
+        //recupero id post
+        const postId = button.dataset.postid;
+
+        //sfrutto id del post per recuperare contatore di like
+        const likeCounter = document.getElementById(`like-counter-${postId}`);
+        //recupero contatore di likes
+        let likes = parseInt(likeCounter.innerText)
+        //per incrementarlo
+        likeCounter.innerText = ++likes
+
+    })
+}
+
+// document.querySelectorAll('.like-button').addEventListener('click', function () {
+//     this.classList.add('green');
+//     (document.querySelector('.js-likes-counter').innerText)++
+//     if (document.querySelector('.like-button').classList.contains('green')) return
+
+// })
