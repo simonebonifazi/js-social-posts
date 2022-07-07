@@ -34,8 +34,8 @@ steps__
 */
 //funzione per creare le card
 const createCard = (card) => {
-    const element = postContent[i]
-    const { photo, name, date, text, id, content, likes } = element
+    //semplifico  e destrutturizzo
+    const { photo, name, date, text, id, content, likes } = postContent[i];
     card = `
     <div class="post">
       <div class="post__header">
@@ -112,24 +112,26 @@ const postContent = [
     },
 
 ]
-let cards = '';
-for (i = 0; i < postContent.length; i++) {
 
+//costruisco i post
+//flag
+let cards = '';
+//ciclo
+for (i = 0; i < postContent.length; i++) {
+    //sfrutto la funzione che ho ideato poc'anzi
     post.innerHTML += createCard(cards);
 }
 
 //aumento i like e diventa verde lo sfondo al click
-//aggancio ai bottoni
+//aggancio ai bottoni QUI, dopo aver "ciclato" i post
 const likeButtons = document.querySelectorAll(".like-button");
-//non riesco ad agganciarmi!! come mai vedo lista vuota?
-console.log(likeButtons)
-console.log(likeButtons.length)
 
 for (let i = 0; i < likeButtons.length; i++) {
     const button = likeButtons[i]
-    button.addEventListener('click', () => {
+    button.addEventListener('click', (event) => {
+        event.preventDefault();
         //aggiungo classe
-        button.classList.add('like-button--liked');
+        button.classList.toggle('like-button--liked');
 
         //recupero id post
         const postId = button.dataset.postid;
@@ -137,9 +139,11 @@ for (let i = 0; i < likeButtons.length; i++) {
         //sfrutto id del post per recuperare contatore di like
         const likeCounter = document.getElementById(`like-counter-${postId}`);
         //recupero contatore di likes
-        let likes = parseInt(likeCounter.innerText)
+        let likes = parseInt(likeCounter.innerText);
+        //controllo se è già cliccato il tasto
+        const isLiked = button.classList.contains('like-button--liked');
         //per incrementarlo
-        likeCounter.innerText = ++likes
+        likeCounter.innerText = isLiked ? ++likes : --likes;
 
     })
 }
